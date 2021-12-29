@@ -112,3 +112,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Downloaded Files
+1.*
+
+# Automatically Generated Files
+.DS_Store
+desktop.ini
+
+# PyCharm Files
+.idea
