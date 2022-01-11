@@ -119,6 +119,7 @@ desktop.ini
 
 # PyCharm Files
 .idea
+bin
 
 # Personal Files
 1.*
