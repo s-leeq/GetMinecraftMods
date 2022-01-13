@@ -4,11 +4,11 @@ import os
 import yaml
 
 
-def cf_mod_download(envdir, mcgameversion, modid, api_key):
+def cf_mod_download(envdir, mcgameversion, modid, apikey):
     api_root = 'https://api.curseforge.com'
     api_headers = {
         'Accept': 'application/json',
-        'x-api-key': api_key
+        'x-api-key': apikey
     }
     mod_url = api_root + '/v1/mods/' + str(modid)
     download_dir = envdir + '/' + mcgameversion + '/'
@@ -41,7 +41,7 @@ def main():
     api_key = index_dict['api_key']
 
     for mod_id in cf_mods.values():
-        cf_mod_download(env_dir, mc_game_version, mod_id, api_key)
+        cf_mod_download(download_path, mc_game_version, mod_id, api_key)
 
 
 if __name__ == '__main__':
