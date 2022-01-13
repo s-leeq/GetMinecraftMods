@@ -120,7 +120,9 @@ desktop.ini
 # PyCharm Files
 .idea
 bin
+pyvenv.cfg
 
 # Personal Files
 1.*
 index.json
+index.yaml
