@@ -1,7 +1,7 @@
 import requests
 import wget
 import os
-import json
+import yaml
 
 
 def cf_mod_download(envdir, mcgameversion, modid, api_key):
