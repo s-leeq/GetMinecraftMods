@@ -30,14 +30,15 @@ def cf_mod_download(envdir, mcgameversion, modid, api_key):
 
 def main():
     env_dir = os.getcwd()
-    mc_game_version = '1.18.1'
 
-    index = open(env_dir+'/index.json')
-    index_dict = json.loads(index.read())
+    index = open(env_dir+'/index.yaml')
+    index_dict = yaml.load(index.read(), Loader=yaml.FullLoader)
     index.close()
 
-    cf_mods = index_dict['cfMods']
-    api_key = index_dict['apiKey']
+    mc_game_version = index_dict['minecraft_version']
+    download_path = index_dict['download_path']
+    cf_mods = index_dict['cf_mods']
+    api_key = index_dict['api_key']
 
     for mod_id in cf_mods.values():
         cf_mod_download(env_dir, mc_game_version, mod_id, api_key)
