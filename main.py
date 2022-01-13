@@ -15,12 +15,13 @@ def cf_mod_download(envdir, mcgameversion, modid, apikey):
 
     api_get_mod = requests.get(mod_url, headers=api_headers).json()  # 调用 API 并转换为 Python Dictionary 类型
 
+    if not os.path.exists(download_dir):  # 判断游戏版本文件夹是否存在
+        os.mkdir(download_dir)
+
     latest_files_indexes = api_get_mod['data']['latestFilesIndexes']  # API 中的 mod 文件索引
     latest_files = api_get_mod['data']['latestFiles']  # API 中的 mod 文件详情
     for index in latest_files_indexes:
         if index['modLoader'] == 4 and index['releaseType'] != 3 and index['gameVersion'] == mcgameversion:
-            if not os.path.exists(download_dir):
-                os.mkdir(download_dir)
             for file in latest_files:
                 if file['id'] == index['fileId']:
                     wget.download(file['downloadUrl'],
