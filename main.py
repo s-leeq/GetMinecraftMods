@@ -17,6 +17,7 @@ def cf_mod_download(envdir, mcgameversion, modid, apikey):
 
     if not os.path.exists(download_dir):  # 判断游戏版本文件夹是否存在
         os.mkdir(download_dir)
+    exist_files_index = os.listdir(download_dir)  # 获取已下载文件名, 以供判断版本更新之需
 
     latest_files_indexes = api_get_mod['data']['latestFilesIndexes']  # API 中的 mod 文件索引
     latest_files = api_get_mod['data']['latestFiles']  # API 中的 mod 文件详情
@@ -24,8 +25,12 @@ def cf_mod_download(envdir, mcgameversion, modid, apikey):
         if index['modLoader'] == 4 and index['releaseType'] != 3 and index['gameVersion'] == mcgameversion:
             for file in latest_files:
                 if file['id'] == index['fileId']:
-                    wget.download(file['downloadUrl'],
-                                  out=download_dir + index['filename'])
+                    if not os.path.exists(download_dir+'/'+file['fileName']):
+                        wget.download(file['downloadUrl'],
+                                      out=download_dir + index['filename'])  # 无新版本, 跳过
+                        for exist_file in exist_files_index:
+                            if exist_file[0:6] == index['filename'][0:6] and exist_file != index['filename'][0:6]:
+                                os.remove(download_dir+exist_file)  # 有新版本, 下载并删除旧版本
 
 
 def main():
